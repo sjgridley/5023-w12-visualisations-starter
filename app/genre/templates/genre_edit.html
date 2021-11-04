@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit: {{ genre.name }}</h2>
+<form method='POST'>
+    {{ form.csrf_token }}
+    <div class="col-3">
+        {{ form.name.label(class='form-label') }}
+        {{ form.name(class='form-control') }}
+    </div>
+    {{ form.submit(class='btn btn-primary my-2') }}
+</form>
+{% endblock %}

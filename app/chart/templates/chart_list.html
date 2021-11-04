@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Available Charts</h3>
+<ul>
+    <li>
+        <a href="{{ url_for('chart.book_ratings_chart') }}">Book ratings</a>
+    </li>
+    <li>
+        <a href="{{ url_for('chart.user_books_chart') }}">Number of Books Owned by Users</a>
+    </li>
+    <li>
+        <!-- TODO: Add a link for the route to show the books read per year by users -->
+        Books Read per Year by Users
+    </li>
+    <li>
+        <!-- TODO: Add a link for the route to show the books per genre chart -->
+        Books per Genre
+    </li>
+</ul>
+{% endblock %}

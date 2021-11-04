@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>All Genres</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number of books</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for genre in genres %}
+        <tr>
+            <td>
+                <a href="{{ url_for('genre.genre_details', id=genre.id) }}">
+                    {{ genre.name }}
+                </a>
+            </td>
+            <td>{{ genre.books | count }}</td>
+            <td>
+                <a class="btn btn-warning" href="{{ url_for('genre.genre_delete', id=genre.id) }}">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<a class="btn btn-primary" href="{{ url_for('genre.genre_add') }}">Add genre</a>
+{% endblock %}

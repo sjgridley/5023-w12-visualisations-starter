@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit: {{ book.title }}</h2>
+<form method='POST'>
+    {{ form.csrf_token }}
+
+    <div class="col-3">
+        {{ form.title.label(class='form-label') }}
+        {{ form.title(class='form-control') }}
+    </div>
+    <div class="col-3">
+        {{ form.author.label(class='form-label') }}
+        {{ form.author(class='form-control') }}
+    </div>
+    <div class="col-3">
+        {{ form.critics_rating.label(class='form-label') }}
+        {{ form.critics_rating(class='form-control') }}
+    </div>
+    <div class="col-3">
+        {{ form.genre_id.label(class='form-label') }}
+        {{ form.genre_id(class='form-select') }}
+    </div>
+
+    {{ form.submit(class='btn btn-primary my-2') }}
+</form>
+{% endblock %}
