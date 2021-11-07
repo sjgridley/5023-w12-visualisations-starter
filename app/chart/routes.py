@@ -49,5 +49,39 @@ def user_books_chart():
     return render_template('chart_page.html', title = 'Books owned per user', chart_JSON = chart_JSON)
 
 # TODO: Add a route for a bar chart that compares books read per year by user
+@bp.route('/books_read')
+@login_required
+def books_read_chart():
+    # Run query to get count of books owned per user and load into DataFrame
+    query = (
+        "SELECT username, books_read_per_year "
+        "FROM user u"
+    )
+    df = pd.read_sql(query, db.session.bind)
+
+    # Draw the chart and dump it into JSON format
+    chart = px.bar(df, x ='username', y='books_read_per_year')
+    chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
+
+    # Returns the template, including the JSON data for the chart
+    return render_template('chart_page.html', title = 'Books read per year per user', chart_JSON = chart_JSON)
+
 
 # TODO: Add a route for a bar chart that compares number of books per genre
+@bp.route('/genre_books')
+@login_required
+def genre_books_chart():
+    
+    query = (
+        "SELECT name, count(*) as number_of_books "
+        "FROM genre g "
+        "JOIN book b on b.genre_id = g.id "
+    )
+    df = pd.read_sql(query, db.session.bind)
+
+    # Draw the chart and dump it into JSON format
+    chart = px.bar(df, x ='name', y='number_of_books')
+    chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
+
+    # Returns the template, including the JSON data for the chart
+    return render_template('chart_page.html', title = 'Books in each Genre', chart_JSON = chart_JSON)
