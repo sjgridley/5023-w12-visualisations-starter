@@ -73,13 +73,13 @@ def books_read_chart():
 def genre_books_chart():
     
     query = (
-        "SELECT name, count(*) as number_of_books "
-        "FROM genre g "
-        "JOIN book b on b.genre_id = g.id "
+        "SELECT name, count(genre_id) as number_of_books from book "
+        "JOIN genre on book.genre_id = genre.id "
+        "GROUP BY genre.name"
     )
     df = pd.read_sql(query, db.session.bind)
 
-    # Draw the chart and dump it into JSON format
+    ##Draw the chart and dump it into JSON format
     chart = px.bar(df, x ='name', y='number_of_books')
     chart_JSON = json.dumps(chart, cls=plotly.utils.PlotlyJSONEncoder, indent=4)
 
